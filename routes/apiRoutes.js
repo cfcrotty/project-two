@@ -74,7 +74,8 @@ module.exports = app => {
       }
     }
     ).then((response) => {
-      res.status(200).end();
+      console.log("in response cb func")
+      res.redirect("/box-layout");
     })
   })
 
