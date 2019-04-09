@@ -51,6 +51,16 @@ module.exports = app => {
     })
   });
 
+  app.get("/api/layout", isAuthenticated, (req, res) => {
+    db.User.findOne({
+      where: {
+        id: req.user.id
+      }
+    }).then(results => {
+      res.json(results.dataValues.layoutObject);
+    })
+  });
+
 
   app.post("/api/settings", isAuthenticated, (req, res) => {
     // console.log(req.body.data);
@@ -67,4 +77,15 @@ module.exports = app => {
       res.status(200).end();
     })
   })
+
+  app.get("/api/settings", isAuthenticated, (req, res) => {
+    db.User.findOne({
+      where: {
+        id: req.user.id
+      }
+    }).then(results => {
+      res.json(results.dataValues.chosenContent);
+    });
+  });
+
 };
