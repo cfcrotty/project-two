@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     chosenContent: {
       type: DataTypes.TEXT,
       defaultValue: null
+    },
+    layoutObject: {
+      type: DataTypes.TEXT,
+      defaultValue: null
     }
   });
 

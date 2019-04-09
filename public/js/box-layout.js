@@ -48,7 +48,6 @@ $(document).on("click", "button", function (event) {
             }
         }).then(res => {
             console.log(res);
-            console.log(JSON.parse(res.data));
         })
     }
 
