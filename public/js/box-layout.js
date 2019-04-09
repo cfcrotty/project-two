@@ -54,6 +54,11 @@ $(document).ready(function () {
         })
     })
 });
+$(document).on("change", "select", function (event) {
+    let rowIndex = parseInt($(this).data("rowindex"));
+    let colIndex = parseInt($(this).data("colindex"));
+    boxHandler.rows[rowIndex].columns[colIndex].contents.key = $(this).val();
+});
 
 $(document).on("click", "button", function (event) {
     let clicked = $(this)[0];
@@ -67,7 +72,6 @@ $(document).on("click", "button", function (event) {
         $('select[class=contents-select').each(function () {
             let rowIndex = parseInt($(this).data("rowindex"));
             let colIndex = parseInt($(this).data("colindex"));
-            console.log($(this).val());
             boxHandler.rows[rowIndex].columns[colIndex].contents.key = $(this).val();
         });
         $.ajax({
@@ -105,6 +109,8 @@ $(document).on("click", "button", function (event) {
         if (oldWidth < 12) {
             boxHandler.rows[rowIndex].columns[Math.abs(colIndex - 1)].width += oldWidth;
             boxHandler.rows[rowIndex].columns.splice(colIndex, 1);
+        } else if (oldWidth === 12) {
+            boxHandler.rows.splice(rowIndex, 1);
         }
         boxHandler.drawBoxes();
     }
