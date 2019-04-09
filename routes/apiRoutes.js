@@ -37,6 +37,12 @@ module.exports = app => {
     req.logout();
     res.redirect("/");
   });
+<<<<<<< HEAD
+  
+  app.post("/api/layout", isAuthenticated, (req, res) => {
+    res.json(req.body);
+  });
+=======
   // END OF PREBUILT CODE
 
   app.post("/api/settings", isAuthenticated, (req, res) => {
@@ -54,4 +60,9 @@ module.exports = app => {
       res.status(200).end();
     })
   })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 59c5a18ee2e8e196e08f67a610d1f2ef104e0c8a
+>>>>>>> 2318704188ab806388082ff3300eab92a43fb676
 };
