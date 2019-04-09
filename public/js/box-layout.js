@@ -17,8 +17,8 @@ const boxHandler = {
                     newCol.append($(`<button data-rowindex="${rowIndex}" data-colindex="${colIndex}" class="box-control-btn expand-right-btn btn btn-primary">Expand Column Right</button>`));
                 }
                 let newSelect = $(`<select data-rowindex="${rowIndex}" data-colindex="${colIndex}" class="contents-select"></select>`);
-                boxHandler.chosenContent.forEach(content => {
-                    newSelect.append($(`<option value="${content}">${content}</option>`));
+                boxHandler.chosenContent.forEach((content, index) => {
+                    newSelect.append($(`<option value="${index}">${content.id}</option>`));
                 })
                 newSelect.val(col.contents.key);
                 newCol.append(newSelect);
@@ -54,6 +54,11 @@ $(document).ready(function () {
         })
     })
 });
+$(document).on("change", "select", function (event) {
+    let rowIndex = parseInt($(this).data("rowindex"));
+    let colIndex = parseInt($(this).data("colindex"));
+    boxHandler.rows[rowIndex].columns[colIndex].contents.key = $(this).val();
+});
 
 $(document).on("click", "button", function (event) {
     let clicked = $(this)[0];
@@ -67,8 +72,7 @@ $(document).on("click", "button", function (event) {
         $('select[class=contents-select').each(function () {
             let rowIndex = parseInt($(this).data("rowindex"));
             let colIndex = parseInt($(this).data("colindex"));
-            console.log($(this).val());
-            boxHandler.rows[rowIndex].columns[colIndex].contents.key = $(this).val();
+            boxHandler.rows[rowIndex].columns[colIndex].contents = boxHandler.chosenContent[$(this).val()];
         });
         $.ajax({
             url: "/api/layout",
@@ -105,6 +109,8 @@ $(document).on("click", "button", function (event) {
         if (oldWidth < 12) {
             boxHandler.rows[rowIndex].columns[Math.abs(colIndex - 1)].width += oldWidth;
             boxHandler.rows[rowIndex].columns.splice(colIndex, 1);
+        } else if (oldWidth === 12) {
+            boxHandler.rows.splice(rowIndex, 1);
         }
         boxHandler.drawBoxes();
     }
