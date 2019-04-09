@@ -1,7 +1,4 @@
 node_modules
-<<<<<<< HEAD
-.env
-config
-=======
 config.json
->>>>>>> 59c5a18ee2e8e196e08f67a610d1f2ef104e0c8a
+.env
+.DS_Store
