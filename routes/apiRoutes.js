@@ -4,33 +4,33 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = app => {
   // Get all examples
-  app.get("/api/examples", isAuthenticated, (req, res) => {
-    db.Example.findAll({
-      where: {
-        UserId: req.user.id
-      }
-    }).then(dbExamples => {
-      res.json(dbExamples);
-    });
-  });
+  // app.get("/api/examples", isAuthenticated, (req, res) => {
+  //   db.Example.findAll({
+  //     where: {
+  //       UserId: req.user.id
+  //     }
+  //   }).then(dbExamples => {
+  //     res.json(dbExamples);
+  //   });
+  // });
 
-  // Create a new example
-  app.post("/api/examples", isAuthenticated, (req, res) => {
-    db.Example.create({
-      UserId: req.user.id,
-      text: req.body.text,
-      description: req.body.description
-    }).then(dbExample => {
-      res.json(dbExample);
-    });
-  });
+  // // Create a new example
+  // app.post("/api/examples", isAuthenticated, (req, res) => {
+  //   db.Example.create({
+  //     UserId: req.user.id,
+  //     text: req.body.text,
+  //     description: req.body.description
+  //   }).then(dbExample => {
+  //     res.json(dbExample);
+  //   });
+  // });
 
   // Delete an example by id
-  app.delete("/api/examples/:id", isAuthenticated, (req, res) => {
-    db.Example.destroy({ where: { id: req.params.id } }).then(dbExample => {
-      res.json(dbExample);
-    });
-  });
+  // app.delete("/api/examples/:id", isAuthenticated, (req, res) => {
+  //   db.Example.destroy({ where: { id: req.params.id } }).then(dbExample => {
+  //     res.json(dbExample);
+  //   });
+  // });
 
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
@@ -52,6 +52,7 @@ module.exports = app => {
       password: req.body.password
     })
       .then(() => {
+        console.log("New user created")
         res.redirect(307, "/api/login");
       })
       .catch(err => {
@@ -64,8 +65,30 @@ module.exports = app => {
     req.logout();
     res.redirect("/");
   });
+<<<<<<< HEAD
   
   app.post("/api/layout", isAuthenticated, (req, res) => {
     res.json(req.body);
   });
+=======
+  // END OF PREBUILT CODE
+
+  app.post("/api/settings", isAuthenticated, (req, res) => {
+    // console.log(req.body.data);
+    let dataArr = req.body.data;
+
+    db.User.update({
+      chosenContent: dataArr
+    }, {
+      where: {
+        id: req.user.id
+      }
+    }
+    ).then((response) => {
+      res.status(200).end();
+    })
+
+  })
+
+>>>>>>> 59c5a18ee2e8e196e08f67a610d1f2ef104e0c8a
 };

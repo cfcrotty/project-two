@@ -15,7 +15,7 @@ module.exports = app => {
       },
       include: [db.Example]
     }).then(dbUser => {
-      res.render("profile", { user: dbUser });
+      res.render("settings", { user: dbUser });
     });
   });
 
