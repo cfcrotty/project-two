@@ -16,3 +16,8 @@
 .box-control-btn {
   display: block;
 }
+
+
+.hidden {
+  display: none;
+}
