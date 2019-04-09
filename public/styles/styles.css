@@ -1,3 +1,18 @@
 .list-group-item {
   line-height: 2.5;
 }
+
+#box-layout-controls {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.content-col {
+  border: solid 1px red;
+  min-height: 200px;
+  padding: 0px;
+}
+
+.box-control-btn {
+  display: block;
+}

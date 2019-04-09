@@ -64,4 +64,8 @@ module.exports = app => {
     req.logout();
     res.redirect("/");
   });
+  
+  app.post("/api/layout", isAuthenticated, (req, res) => {
+    res.json(req.body);
+  });
 };
