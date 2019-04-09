@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "exampledb",
+    "database": "dashdb",
     "host": "localhost",
     "dialect": "mysql"
   },

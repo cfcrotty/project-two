@@ -1,3 +1,9 @@
 .list-group-item {
   line-height: 2.5;
 }
+
+.main {
+  /* font-family: montserrat; */
+  background-image: url("/public/assets/images/hex_grid_white_by_metatality_d62ejg7.png")
+}
+

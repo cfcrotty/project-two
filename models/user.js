@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    // Adding code to User object
+    chosenContent: {
+      type: DataTypes.TEXT,
+      defaultValue: null
     }
   });
 
