@@ -3,35 +3,7 @@ const passport = require("../config/passport");
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = app => {
-  // Get all examples
-  // app.get("/api/examples", isAuthenticated, (req, res) => {
-  //   db.Example.findAll({
-  //     where: {
-  //       UserId: req.user.id
-  //     }
-  //   }).then(dbExamples => {
-  //     res.json(dbExamples);
-  //   });
-  // });
-
-  // // Create a new example
-  // app.post("/api/examples", isAuthenticated, (req, res) => {
-  //   db.Example.create({
-  //     UserId: req.user.id,
-  //     text: req.body.text,
-  //     description: req.body.description
-  //   }).then(dbExample => {
-  //     res.json(dbExample);
-  //   });
-  // });
-
-  // Delete an example by id
-  // app.delete("/api/examples/:id", isAuthenticated, (req, res) => {
-  //   db.Example.destroy({ where: { id: req.params.id } }).then(dbExample => {
-  //     res.json(dbExample);
-  //   });
-  // });
-
+  
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
@@ -81,7 +53,5 @@ module.exports = app => {
     ).then((response) => {
       res.status(200).end();
     })
-
   })
-
 };
