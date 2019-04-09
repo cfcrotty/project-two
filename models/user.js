@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     // Adding code to User object
     chosenContent: {
-      type: DataTypes
+      type: DataTypes.TEXT,
+      defaultValue: null
     }
   });
 

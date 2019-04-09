@@ -52,6 +52,7 @@ module.exports = app => {
       password: req.body.password
     })
       .then(() => {
+        console.log("New user created")
         res.redirect(307, "/api/login");
       })
       .catch(err => {
@@ -64,14 +65,23 @@ module.exports = app => {
     req.logout();
     res.redirect("/");
   });
-// END OF PREBUILT CODE
+  // END OF PREBUILT CODE
 
-  app.post("/api/settings", (req, res) => {
-    console.log(req.body.data);
+  app.post("/api/settings", isAuthenticated, (req, res) => {
+    // console.log(req.body.data);
     let dataArr = req.body.data;
-    
-    
-    res.status(200).end();
+
+    db.User.update({
+      chosenContent: dataArr
+    }, {
+      where: {
+        id: req.user.id
+      }
+    }
+    ).then((response) => {
+      res.status(200).end();
+    })
+
   })
 
 };
