@@ -1,6 +1,7 @@
 
 const boxHandler = {
     rows: [],
+    chosenContent: [],
     drawBoxes: function () {
         $("#box-container").empty();
         this.rows.forEach((row, rowIndex) => {
@@ -15,7 +16,14 @@ const boxHandler = {
                 if (colIndex !== colArray.length - 1 && colArray[colIndex + 1].width > 1) {
                     newCol.append($(`<button data-rowindex="${rowIndex}" data-colindex="${colIndex}" class="box-control-btn expand-right-btn btn btn-primary">Expand Column Right</button>`));
                 }
+                let newSelect = $(`<select data-rowindex="${rowIndex}" data-colindex="${colIndex}" class="contents-select"></select>`);
+                boxHandler.chosenContent.forEach(content => {
+                    newSelect.append($(`<option value="${content}">${content}</option>`));
+                })
+                newSelect.val(col.contents.key);
+                newCol.append(newSelect);
                 newRow.append(newCol);
+
             });
             $("#box-container").append(newRow);
         });
@@ -27,8 +35,24 @@ const boxHandler = {
 }
 
 $(document).ready(function () {
-    boxHandler.addRow();
-    boxHandler.drawBoxes();
+    $.ajax({
+        url: "/api/layout",
+        method: "GET"
+    }).then(results => {
+        if (results !== null) {
+            boxHandler.rows = JSON.parse(results);
+        } else { boxHandler.addRow(); }
+
+        $.ajax({
+            url: "/api/settings",
+            method: "GET"
+        }).then(results => {
+            if (results !== null) {
+                boxHandler.chosenContent = JSON.parse(results);
+            }
+            boxHandler.drawBoxes();
+        })
+    })
 });
 
 $(document).on("click", "button", function (event) {
@@ -40,11 +64,17 @@ $(document).on("click", "button", function (event) {
     }
 
     if (clicked.id === "submit-layout-button") {
+        $('select[class=contents-select').each(function () {
+            let rowIndex = parseInt($(this).data("rowindex"));
+            let colIndex = parseInt($(this).data("colindex"));
+            console.log($(this).val());
+            boxHandler.rows[rowIndex].columns[colIndex].contents.key = $(this).val();
+        });
         $.ajax({
             url: "/api/layout",
             method: "POST",
             data: {
-              data: JSON.stringify(boxHandler.rows)
+                data: JSON.stringify(boxHandler.rows)
             }
         }).then(res => {
             console.log(res);
@@ -83,7 +113,7 @@ $(document).on("click", "button", function (event) {
         let rowIndex = parseInt($(clicked).data("rowindex"));
         let colIndex = parseInt($(clicked).data("colindex"));
         boxHandler.rows[rowIndex].columns[colIndex].width++;
-        boxHandler.rows[rowIndex].columns[colIndex-1].width--;
+        boxHandler.rows[rowIndex].columns[colIndex - 1].width--;
         boxHandler.drawBoxes();
     }
 
@@ -91,7 +121,7 @@ $(document).on("click", "button", function (event) {
         let rowIndex = parseInt($(clicked).data("rowindex"));
         let colIndex = parseInt($(clicked).data("colindex"));
         boxHandler.rows[rowIndex].columns[colIndex].width++;
-        boxHandler.rows[rowIndex].columns[colIndex+1].width--;
+        boxHandler.rows[rowIndex].columns[colIndex + 1].width--;
         boxHandler.drawBoxes();
     }
 });
