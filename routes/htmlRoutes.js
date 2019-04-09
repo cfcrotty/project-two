@@ -28,6 +28,18 @@ module.exports = app => {
     });
   });
 
+  app.get("/box-layout", isAuthenticated, (req, res) => {
+    db.User.findOne({
+      where: {
+        id: req.user.id
+      },
+      include: [db.Example]
+    }).then(dbUser => {
+      res.render("box-layout", { user: dbUser });
+    });
+  });
+
   // Render 404 page for any unmatched routes
   app.get("*", (req, res) => res.render("404"));
 };
+
