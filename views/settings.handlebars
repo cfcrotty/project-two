@@ -1,6 +1,7 @@
+
 <div class="row">
   <div class="col-md-12">
-    <h1>Customize your Dashboard {{user.email}}!</h1>
+    <h2>Customize your Dashboard {{user.email}}!</h2>
   </div>
 </div>
 
@@ -11,28 +12,40 @@
     CNN
   </label>
 </div>
-
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="cnn">
+  <label class="form-check-label" for="cnn">
+    New York Times
+  </label>
+</div>
+{{!-- TEXT BOX FOR NYT --}}
+<div class="form-group hidden">
+  <label for="nyt-keyword">News Topic</label>
+  <input type="email" class="form-control" id="nyt-keyword" placeholder="Keyword for news search">
+</div>
 {{!-- Personal Info --}}
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="weather" >
+  <input class="form-check-input" type="checkbox" value="" id="weather">
   <label class="form-check-label" for="weather">
     Weather
   </label>
 </div>
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="to-do" >
-  <label class="form-check-label" for="to-do">
-    To-do list
-  </label>
-</div>
+
 
 {{!-- Fun --}}
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="reddit" >
-  <label class="form-check-label" for="reddit">
-    Reddit
+  <input class="form-check-input" type="checkbox" value="" id="cnn">
+  <label class="form-check-label" for="cnn">
+    Spotify
   </label>
 </div>
+
+{{!-- INPUT BOX FOR SPOTIFY --}}
+<div class="form-group hidden">
+    <label for="spotify-song">Song to Include</label>
+    <input type="email" class="form-control" id="spotify-song" placeholder="Song title, artist">
+  </div>
+
 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="giphy">
   <label class="form-check-label" for="giphy">
@@ -40,49 +53,56 @@
   </label>
 </div>
 
-{{!-- IOT --}}
-<div class="form-check">
+{{!-- FUTURE DEVELOPMENT --}}
+
+{{!-- <div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="live-stream">
   <label class="form-check-label" for="live-stream">
     Live Stream - San Diego Zoo Pandas
   </label>
-</div>
-<div class="form-check">
+</div> --}}
+{{!-- <div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="user-iot" >
   <label class="form-check-label" for="user-iot">
     Connect your own devices
   </label>
-</div>
+</div> --}}
+{{!-- <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="to-do">
+  <label class="form-check-label" for="to-do">
+    To-do list
+  </label>
+</div> --}}
 
 {{!-- Submit Button --}}
 <button class="btn btn-primary" id="save-btn">Save Selections</button>
 
 <script>
-    $("#save-btn").on("click", (e) => {
-        e.preventDefault();
-        console.log("clicked save btn");
-        // capture what has been clicked on 
-        // send name of buttons that are checked to true as an object
-        
-        let settingsArr = [];        
+  $("#save-btn").on("click", (e) => {
+    e.preventDefault();
+    console.log("clicked save btn");
+    // capture what has been clicked on 
+    // send name of buttons that are checked to true as an object
 
-        // loop through the form, and see if each option is selected 
-        $('input[type=checkbox').each(function () {
-            if (this.checked) {
-                console.log(this)
-                settingsArr.push(this.id);
-            }
-        });
-        console.log(settingsArr);
-        $.ajax({
-            url: "/api/settings",
-            method: "POST",
-            data: {
-              data: JSON.stringify(settingsArr)
-            }
-        }).then(res => {
-            console.log(res);
-        })
-        
+    let settingsArr = [];
+
+    // loop through the form, and see if each option is selected 
+    $('input[type=checkbox').each(function () {
+      if (this.checked) {
+        console.log(this)
+        settingsArr.push(this.id);
+      }
+    });
+    console.log(settingsArr);
+    $.ajax({
+      url: "/api/settings",
+      method: "POST",
+      data: {
+        data: JSON.stringify(settingsArr)
+      }
+    }).then(res => {
+      console.log(res);
     })
-    </script>
+
+  })
+</script>

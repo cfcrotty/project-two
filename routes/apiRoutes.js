@@ -28,7 +28,7 @@ module.exports = app => {
         res.redirect(307, "/api/login");
       })
       .catch(err => {
-        res.status(422).json(err.errors[0].message);
+        res.status(422).json(err);
       });
   });
 
