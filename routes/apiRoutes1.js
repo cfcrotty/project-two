@@ -203,4 +203,17 @@ module.exports = (app) => {
             }
         });
     });
+    app.post("/news", isAuthenticated, (req, res) => {
+        let topic = req.body.topic;
+        let source = req.body.source;
+        getNews(source, topic, (isSuccess, result) => {
+            var allResult = [];
+            if (isSuccess) {
+                allResult = { news: result };
+                res.status(200).json(allResult);
+            } else {
+                res.status(404).json({ news: {} });
+            }
+        });
+    });
 }
