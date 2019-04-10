@@ -1,0 +1,29 @@
+<div class='row'>
+    <div class='md-col-12 marginAuto' id='nytimesData'>
+    </div>
+</div>
+
+<script>
+    getNYTTimesData("{{contents.textInfo}}");
+    function getNYTTimesData(topic) {
+        $.ajax("/nytimes", {
+            type: "POST",
+            data: { topic: topic }
+        }).then(
+            function (res) {
+                //location.reload();
+                //console.log(res);
+                var ny = res.nytimes.docs;
+                //var size = Object.keys(response.tracks.items).length;
+                var strNY = `<div class="card">
+                      <div class="card-header">`;
+                for (let i = 0; i < ny.length; i++) {
+                    strNY += `<b>${ny[i].headline.main}</b><br>${ny[i].snippet} <br> <a target="_blank" href="${ny[i].web_url}">${ny[i].web_url}</a><br> <hr>`;
+                }
+                strNY += `</div>
+                      </div>`;
+                $("#nytimesData").append(strNY);
+            }
+        );
+    }
+</script>

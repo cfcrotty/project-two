@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+var handlebars = require('handlebars');
 const session = require("express-session");
 const exphbs = require("express-handlebars");
 
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Handlebars
+
 app.engine(
   "handlebars",
   exphbs({
@@ -39,13 +41,17 @@ app.engine(
   })
 );
 app.set("view engine", "handlebars");
-
+handlebars.registerHelper('ifEquals',
+  function (arg1,arg2,options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+  }
+);
 // Routes
 require("./routes/apiRoutes1")(app);
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
-const syncOptions = { force: true };
+const syncOptions = { force: false };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`

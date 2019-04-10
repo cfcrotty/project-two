@@ -1,0 +1,56 @@
+<div class='row'>
+    <div class='md-col-12 marginAuto' id="weather">
+    </div>
+</div>
+
+<script>
+    var lat, long;
+    function getLatLong(callback) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                lat = position.coords.latitude;
+                long = position.coords.longitude;
+                callback(lat, long);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+            callback(lat, long);
+        }
+    }
+    getLatLong(getWeatherData);
+    function getWeatherData(lat, long) {
+        if (!lat) lat = 32.8531813;
+        if (!long) long = -117.1826385;
+        $.ajax("/weather", {
+            type: "POST",
+            data: { lat: lat, long: long }
+        }).then(
+            function (res) {
+                $("#weather").append(`<div class="card">
+                            <div class='card-header'>
+                          <h3><span><img
+                                src="/images/weather/${res.weather.icon}.png"></span>${res.weather.summary}
+                          </h3>
+                          </div>
+                          <div class='card-body'>
+                            <div class="row">
+                              <div class='col-sm-4'>Description</div>
+                              <div class='col-sm-8'>${res.weather.summaryHourly}</div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-sm-4'>Temperature</div>
+                              <div class='col-sm-8'>${res.weather.tempMax}F</div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-sm-4'>Humidity</div>
+                              <div class='col-sm-8'>${res.weather.humidity}%</div>
+                            </div>
+                            <div class='row'>
+                              <div class='col-sm-4'>Wind Speed</div>
+                              <div class='col-sm-8'>${res.weather.windSpeed} mph</div>
+                            </div>
+                          </div>
+                        </div>`);
+            });
+    }
+</script>

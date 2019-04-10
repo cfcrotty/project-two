@@ -20,3 +20,21 @@
 .hidden {
   display: none;
 }
+
+.eachRow {
+  height: 300px;
+  overflow: auto;
+}
+
+.marginAuto {
+  margin: auto;
+  margin-top: 20px;
+}
+
+/* START - Media Queries */
+@media screen and (max-width: 770px) {
+  .eachRow {
+    height: 500px;
+  }
+}
+/* END - Media Queries */

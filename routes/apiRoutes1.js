@@ -39,7 +39,6 @@ function getNYTimes(event, callback) {
     let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + process.env.NYTIMES + "&q=" + event;
     console.log(queryURL);
     axios.get(queryURL).then(function (NYTData) {
-        //console.log(NYTData.data.response.docs);
         callback(true, NYTData.data.response);
         /*
         for (var i = 0; i < numArticles; i++) {
@@ -69,13 +68,11 @@ function getNYTimes(event, callback) {
     });
 }
 
-//getNYTimes("flowers");
-
 /** 
- function to get weather data
- @param lat: latitude 
- @param long: longitude
- @param callback: a function to call when all data is done
+ * function to get weather data
+ * @param lat: latitude 
+ * @param long: longitude
+ * @param callback: a function to call when all data is done
  */
 function getWeather(lat, long, callback) {
     var results;
@@ -120,15 +117,10 @@ function getWeather(lat, long, callback) {
     });
 
 }
-//getWeather(console.log);
 
 function getGiphy(callback) {
-    var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + process.env.GIPHY //+ "&limit=1";
-    //var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=" + process.env.GIPHY + "&limit=1";
+    var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=" + process.env.GIPHY
     axios.get(queryURL).then(function (response) {
-        //console.log(response.data);
-        //response.data.data.images.fixed_height_small.url
-        //console.log(response.data.data.images.original.url);
         if (response.data.data.images.original.url) {
             callback(true, response.data.data.images.original.url);
         }
@@ -136,9 +128,7 @@ function getGiphy(callback) {
         callback(false, error);
     });
 }
-//getGiphy(console.log);
 
-//getNews("bbc-news","",console.log);
 function getNews(source,topic,callback) {
     newsapi.v2.everything({
         q: topic,
@@ -156,6 +146,10 @@ function getNews(source,topic,callback) {
     });
 }
 
+//'[{"columns":[{"width":6,"contents":{"id":"spotify","textInfo":"blackpink"}},{"width":6,"contents":{"id":"giphy"}}]},
+//{"columns":[{"width":12,"contents":{"id":"weather"}}]},
+//{"columns":[{"width":12,"contents":{"id":"nyt","textInfo":"flowers"}}]}]'
+
 module.exports = (app) => {
     app.get("/api", isAuthenticated, (req, res) => {
         db.User.findOne({
@@ -164,8 +158,7 @@ module.exports = (app) => {
             },
             include: [db.Example]
           }).then(dbUser => {
-            //res.render("box-layout", { user: dbUser });
-            res.render("api", { user: dbUser });
+            res.render("api", { user: dbUser, obj: JSON.parse(dbUser.layoutObject) });
           });
         
     });
@@ -179,7 +172,7 @@ module.exports = (app) => {
             }
         });
     });
-    app.post("/weather", isAuthenticated, (req, res) => { //needs latitude and longitude from client
+    app.post("/weather", isAuthenticated, (req, res) => {
         let lat = req.body.lat;
         let long = req.body.long;
         getWeather(lat, long, (isSuccess, result) => {
@@ -200,6 +193,30 @@ module.exports = (app) => {
                 res.status(200).json(allResult);
             } else {
                 res.status(404).json({ nytimes: {} });
+            }
+        });
+    });
+    app.post("/news", isAuthenticated, (req, res) => {
+        let topic = req.body.topic;
+        let source = req.body.source;
+        getNews(source, topic, (isSuccess, result) => {
+            var allResult = [];
+            if (isSuccess) {
+                allResult = { news: result };
+                res.status(200).json(allResult);
+            } else {
+                res.status(404).json({ news: {} });
+            }
+        });
+    });
+    app.post("/spotify", isAuthenticated, (req, res) => {
+        let song = req.body.song;
+        getSpotify(song, (isSuccess, spotifyRes) => {
+            if (isSuccess) {
+                var allResult = { spotify: spotifyRes };
+                res.status(200).json(allResult);
+            } else {
+                res.status(404).json({ spotify: "" });
             }
         });
     });
