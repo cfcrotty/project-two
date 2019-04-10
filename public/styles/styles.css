@@ -22,13 +22,23 @@
 }
 
 .eachRow {
-  height: 300px;
-  overflow: auto;
+  height: 350px;
+  margin-bottom: 20px;
 }
 
 .marginAuto {
   margin: auto;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  width: 100%;
+}
+
+.eachColumn {
+  height: 350px;
+  overflow: auto;
+}
+
+.littleMargin {
+  margin: 1px;
 }
 
 /* START - Media Queries */
