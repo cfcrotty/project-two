@@ -5,11 +5,28 @@
 </div>
 
 {{!-- News Feeds --}}
+{{!-- CNN--}}
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="cnn">
+  <input class="form-check-input" type="checkbox" data-associatedtextbox="cnn-input" value="" id="cnn">
   <label class="form-check-label" for="cnn">
     CNN
   </label>
+</div>
+{{!-- TEXT BOX FOR CNN --}}
+<div id="cnn-text-form" class="form-group hidden">
+  <input type="email" class="form-control" id="cnn-input" placeholder="Keyword for news search">
+</div>
+
+{{!-- BBC--}}
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" data-associatedtextbox="bbc-input" value="" id="bbc">
+  <label class="form-check-label" for="bbc">
+    BBC
+  </label>
+</div>
+{{!-- TEXT BOX FOR BBC --}}
+<div id="bbc-text-form" class="form-group hidden">
+  <input type="email" class="form-control" id="bbc-input" placeholder="Keyword for news search">
 </div>
 
 {{!-- NYT --}}
@@ -21,7 +38,6 @@
 </div>
 {{!-- TEXT BOX FOR NYT --}}
 <div id="nyt-text-form" class="form-group hidden">
-  <label for="nyt-keyword">News Topic</label>
   <input type="email" class="form-control" id="nyt-input" placeholder="Keyword for news search">
 </div>
 
@@ -45,7 +61,6 @@
 
 {{!-- INPUT BOX FOR SPOTIFY --}}
 <div id="spotify-text-form" class="form-group hidden">
-  <label for="spotify-song">Song to Include</label>
   <input type="text" class="form-control" id="spotify-input" placeholder="Song title, artist">
 </div>
 
@@ -53,6 +68,14 @@
   <input class="form-check-input" type="checkbox" value="" id="giphy">
   <label class="form-check-label" for="giphy">
     Giphy
+  </label>
+</div>
+
+{{!-- Add solar array --}}
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="solar">
+  <label class="form-check-label" for="solar">
+    Solar Array Information 
   </label>
 </div>
 
@@ -98,13 +121,17 @@
 <button class="btn btn-primary" id="save-btn">Save Selections</button>
 
 <script>
-  const nytimesBtn = document.getElementById('nyt');
-  const nytTextForm = document.getElementById('nyt-text-form');
-  const spotifyBtn = document.getElementById('spotify');
+  const cnnBtn          = document.getElementById('cnn');
+  const cnnTextForm     = document.getElementById('cnn-text-form');   
+  const bbcBtn          = document.getElementById('bbc');
+  const bbcTextForm     = document.getElementById('bbc-text-form');
+  const nytimesBtn      = document.getElementById('nyt');
+  const nytTextForm     = document.getElementById('nyt-text-form');
+  const spotifyBtn      = document.getElementById('spotify');
   const spotifyTextForm = document.getElementById('spotify-text-form');
-  const staticBtn = document.getElementById('static-links');
-  const staticTextForm = document.getElementById('static-text-form');
-  let linkCounter = 2;
+  const staticBtn       = document.getElementById('static-links');
+  const staticTextForm  = document.getElementById('static-text-form');
+  let   linkCounter     = 2;
 
   nytimesBtn.addEventListener('change', (e) => {
     if (nytTextForm.classList.contains('hidden')) {
@@ -130,6 +157,22 @@
     }
   });
 
+  cnnBtn.addEventListener('change', (e) => {
+    if (cnnTextForm.classList.contains('hidden')) {
+      cnnTextForm.classList.remove('hidden');
+    } else {
+      cnnTextForm.classList.add('hidden');
+    }
+  });
+
+  bbcBtn.addEventListener('change', (e) => {
+    if (bbcTextForm.classList.contains('hidden')) {
+      bbcTextForm.classList.remove('hidden');
+    } else {
+      bbcTextForm.classList.add('hidden');
+    }
+  });
+
   $("#add-link-btn").on("click", function (e) {
     // create a new input form and append to page
     $("#add-links-div").append(`<input type="text" class="form-control" id="static-input-${linkCounter}" placeholder="Input static link URL">`)
@@ -147,14 +190,12 @@
     // loop through the form, and see if each option is selected 
     $('input[type=checkbox').each(function () {
       if (this.checked) {
-        console.log(this)
         let settingsObj = {
           id: this.id
         }
 
         // add text/keywords to obj in settingsArr
         if ($(this).data("associatedtextbox")) {
-          console.log()
           settingsObj.textInfo = $(`#${$(this).data("associatedtextbox")}`).val();
         }
         
@@ -163,15 +204,10 @@
            $("#add-links-div").children().each(function () {            
           settingsObj.urls.push($(this).val()) 
         })
-        console.log(settingsObj);
         }
         
         settingsArr.push(settingsObj);
       }
-
-
-
-
     });
     console.log(settingsArr);
 
