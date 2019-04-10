@@ -97,4 +97,14 @@ $(function () {
 //       }
 //     );
 //   }
+//   function getSpotifyData(song) {
+//     $.ajax("/spotify", {
+//       type: "POST",
+//        data: {song: song}
+//     }).then(
+//       function (res) {
+//         $("#spotifySong").attr(`src`, res.giphy);
+//       }
+//     );
+//   }
  });

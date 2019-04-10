@@ -1,0 +1,19 @@
+<div class='row'>
+    <div class='md-col-12 marginAuto'>
+        <iframe id="spotifySong" src="" width="100%" height="300px" frameborder="0" allowtransparency="true"
+            allow="encrypted-media"></iframe>
+    </div>
+</div>
+<script>
+    getSpotifyData("{{contents.textInfo}}");
+    function getSpotifyData(song) {
+        $.ajax("/spotify", {
+            type: "POST",
+            data: { song: song }
+        }).then(
+            function (res) {
+                $("#spotifySong").attr(`src`, res.spotify);
+            }
+        );
+    }
+</script>
