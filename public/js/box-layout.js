@@ -85,6 +85,7 @@ $(document).on("click", "button", function (event) {
             }
         }).then(res => {
             console.log(res);
+            window.location.href = "/api";
         })
     }
 
