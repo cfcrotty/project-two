@@ -129,6 +129,60 @@ function getGiphy(callback) {
     });
 }
 
+function getSolar(callback) {
+
+    // From Env:
+    //    process.env.SSOLAREDGE_APIKEY
+    //    process.env.SOLAREDGE_SITEID
+
+    // create date range elements
+    var endDateYMD = moment().format("YYYY-MM-DD");
+    console.log(`endDateYMD = ${endDateYMD}`);
+    var startDateYMD = moment().subtract(14, "days").format("YYYY-MM-DD");
+    console.log(`startDateYMD = ${startDateYMD}`);
+
+    results = [];
+    // build the URL
+    var queryURL = "https://monitoringapi.solaredge.com/" 
+                            + "site/" + process.env.SOLAREDGE_SITEID 
+                            + "/energy?timeUnit=DAY&startDate=" + startDateYMD 
+                            + "&endDate=" + endDateYMD 
+                            + "&api_key=" + process.env.SOLAREDGE_APIKEY;
+
+    console.log(queryURL);
+
+        // ------------------  Get the production data
+        axios.get(queryURL).then(function (response) {
+            console.log(response.data);
+            
+            for(let i=0; i<response.data.energy.values.length; i++)
+            {
+                var datestr = response.data.energy.values[i].date;
+                datestr = datestr.replace("T00:00:00.000Z", "");
+                // var dateUnix = moment(datestr).format('X');
+                // var dateUTC = moment.utc(datestr);
+                results.push( {  date : datestr,
+                            power : response.data.energy.values[i].value });
+            }
+            console.log(`results = ${JSON.stringify(results)}`);
+            callback(true, results);
+        }, function (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Error", error.message);
+            }
+            console.log(error.config);
+            callback(false, error);      
+        }); 
+}
+
+
+
 function getNews(source,topic,callback) {
     newsapi.v2.everything({
         q: topic,
@@ -169,6 +223,16 @@ module.exports = (app) => {
                 res.status(200).json(allResult);
             } else {
                 res.status(404).json({ giphy: "" });
+            }
+        });
+    });
+    app.get("/solar", /* isAuthenticated, */ (req, res) => {
+        getSolar((isSuccess, solarRes) => {
+            if (isSuccess) {
+                var allResult = { solar: solarRes };
+                res.status(200).json(allResult);
+            } else {
+                res.status(404).json({ solar: "" });
             }
         });
     });
