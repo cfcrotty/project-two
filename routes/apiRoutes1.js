@@ -31,28 +31,14 @@ function getSpotify(song, callback) {
     });
 }
 
-//getSpotify("Somewhere Over The Rainbow by Judy Garland", console.log);
-
 var numArticles = 0;
 function getNYTimes(event, callback) {
     numArticles = 3;
+    event = event.trim();
+    if (!event) event = "World";
     let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + process.env.NYTIMES + "&q=" + event;
-    console.log(queryURL);
     axios.get(queryURL).then(function (NYTData) {
         callback(true, NYTData.data.response);
-        /*
-        for (var i = 0; i < numArticles; i++) {
-            var article = NYTData.data.response.docs[i];
-            var headline = article.headline;
-            var byline = article.byline;
-            byline.original 
-            headline.main 
-             article.snippet 
-            article.pub_date = article.pub_date.substring(0, article.pub_date.indexOf('+'));
-             article.pub_date.replace('T', ' ') 
-             article.web_url    
-        }
-        */
     }, function (error) {
         if (error.response) {
             console.log(error.response.data);
@@ -193,28 +179,24 @@ function getNews(source,topic,callback) {
     }).then(response => {
         //console.log(response);
         //console.log(response.articles[0]);//.title, .description, .url, .publishedAt=2019-04-07T00:10:15Z
-        callback(true,response);
+        callback(true, response.articles);
     }).catch((error) => {
         //console.log(error);
-        callback(false,error);
+        callback(false, error);
     });
 }
-
-//'[{"columns":[{"width":6,"contents":{"id":"spotify","textInfo":"blackpink"}},{"width":6,"contents":{"id":"giphy"}}]},
-//{"columns":[{"width":12,"contents":{"id":"weather"}}]},
-//{"columns":[{"width":12,"contents":{"id":"nyt","textInfo":"flowers"}}]}]'
 
 module.exports = (app) => {
     app.get("/api", isAuthenticated, (req, res) => {
         db.User.findOne({
             where: {
-              id: req.user.id
+                id: req.user.id
             },
             include: [db.Example]
-          }).then(dbUser => {
+        }).then(dbUser => {
             res.render("api", { user: dbUser, obj: JSON.parse(dbUser.layoutObject) });
-          });
-        
+        });
+
     });
     app.get("/giphy", (req, res) => {
         getGiphy((isSuccess, giphyRes) => {

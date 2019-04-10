@@ -1,0 +1,29 @@
+<div class='row eachColumn littleMargin'>
+    <div class='md-col-12 marginAuto' id='cnnData'>
+    </div>
+</div>
+
+<script>
+    getCNNData("cnn","{{contents.textInfo}}");
+    function getCNNData(source,topic) {
+        $.ajax("/news", {
+            type: "POST",
+            data: { topic: topic,source: source }
+        }).then(
+            function (res) {
+                //var size = Object.keys(response.tracks.items).length;
+                var strCNN = `<div class="card">
+                        <div class="card-header">
+                            <h2>CNN News</h2>
+                        </div>
+                      <div class="card-body">`;
+                for (let i = 0; i < res.news.length; i++) {
+                    strCNN += `<b>${res.news[i].title}</b><br>${res.news[i].description} <br> <a target="_blank" href="${res.news[i].url}">${res.news[i].url}</a><br> <hr>`;
+                }
+                strCNN += `</div>
+                      </div>`;
+                $("#cnnData").append(strCNN);
+            }
+        );
+    }
+</script>
