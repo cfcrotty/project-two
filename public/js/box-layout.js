@@ -18,9 +18,12 @@ const boxHandler = {
                 }
                 let newSelect = $(`<select data-rowindex="${rowIndex}" data-colindex="${colIndex}" class="contents-select"></select>`);
                 boxHandler.chosenContent.forEach((content, index) => {
-                    newSelect.append($(`<option value="${index}">${content.id}</option>`));
+                    if (col.contents.id === content.id) {
+                        newSelect.append($(`<option value="${index}" selected>${content.id}</option>`));
+                    } else {
+                        newSelect.append($(`<option value="${index}">${content.id}</option>`));
+                    }
                 })
-                newSelect.val(col.contents.key);
                 newCol.append(newSelect);
                 newRow.append(newCol);
 
