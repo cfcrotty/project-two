@@ -89,9 +89,9 @@
         </div>
 
         {{!-- Static link input box --}}
-        <div id="static-text-form" class="form-group hidden">
+        <div id="static-links-text-form" class="form-group hidden">
           <div id="add-links-div">
-            <input type="text" class="form-control" id="static-input-1" placeholder="Input static link URL">
+            <input type="text" class="form-control" id="static-links-input-0" placeholder="Input static link URL">
           </div>
           <button class="btn btn-primary " id="add-link-btn">+</button>
         </div>
@@ -137,8 +137,8 @@
   const spotifyBtn = document.getElementById('spotify');
   const spotifyTextForm = document.getElementById('spotify-text-form');
   const staticBtn = document.getElementById('static-links');
-  const staticTextForm = document.getElementById('static-text-form');
-  let linkCounter = 2;
+  const staticTextForm = document.getElementById('static-links-text-form');
+  let linkCounter = 1;
 
   $(document).ready(function () {
     $.ajax({
@@ -149,11 +149,19 @@
       // loopo through results arr of objects
       resultsArr.forEach(item => {
         $("#" + item.id).prop('checked', true);
-        console.log($("#" + item.id + "-text-form"));
-        if ($("#" + item.id).data("associatedtextbox")) {
+        console.log(resultsArr);
+        // console.log($("#" + item.id + "-text-form"));
+        if ($("#" + item.id).data("associatedtextbox"))  {
           $("#" + item.id + "-text-form").removeClass('hidden');
           //populate text field
           $("#" + item.id + "-input").val(item.textInfo);
+        }
+        if ($("#" + item.id).data("static-links")) {
+          $("#" + item.id + "-text-form").removeClass('hidden');
+
+          item.urls.forEach((link, index) => {
+            $("#" + item.id + "-input-" + index).val(link);
+          })
         }
       })
     })
@@ -201,7 +209,7 @@
 
   $("#add-link-btn").on("click", function (e) {
     // create a new input form and append to page
-    $("#add-links-div").append(`<input type="text" class="form-control" id="static-input-${linkCounter}" placeholder="Input static link URL">`)
+    $("#add-links-div").append(`<input type="text" class="form-control" id="static-links-input-${linkCounter}" placeholder="Input static link URL">`)
     linkCounter++;
 
   })
