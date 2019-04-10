@@ -159,6 +159,7 @@ function getSolar(callback) {
             {
                 var datestr = response.data.energy.values[i].date;
                 datestr = datestr.replace("T00:00:00.000Z", "");
+                datestr = datestr.replace(" 00:00:00", "");
                 // var dateUnix = moment(datestr).format('X');
                 // var dateUTC = moment.utc(datestr);
                 results.push( {  date : datestr,
