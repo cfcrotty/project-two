@@ -14,8 +14,8 @@
 
 {{!-- NYT --}}
 <div class="form-check">
-  <input class="form-check-input" type="checkbox"  data-associatedtextbox="nyt-input" value="" id="nyt">
-  <label class="form-check-label" for="cnn">
+  <input class="form-check-input" type="checkbox" data-associatedtextbox="nyt-input" value="" id="nyt">
+  <label class="form-check-label" for="nyt">
     New York Times
   </label>
 </div>
@@ -24,6 +24,8 @@
   <label for="nyt-keyword">News Topic</label>
   <input type="email" class="form-control" id="nyt-input" placeholder="Keyword for news search">
 </div>
+
+
 {{!-- Personal Info --}}
 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="weather">
@@ -54,6 +56,23 @@
   </label>
 </div>
 
+{{!-- Add static links --}}
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" data-static-links="true" id="static-links">
+  <label class="form-check-label" for="static-links">
+    Add static-links
+  </label>
+</div>
+
+{{!-- Static link input box --}}
+<div id="static-text-form" class="form-group hidden">
+  <div id="add-links-div">
+    <input type="text" class="form-control" id="static-input-1" placeholder="Input static link URL">
+  </div>
+  <button class="btn btn-primary" id="add-link-btn">+</button>
+</div>
+
+
 {{!-- FUTURE DEVELOPMENT --}}
 
 {{!-- <div class="form-check">
@@ -83,6 +102,9 @@
   const nytTextForm = document.getElementById('nyt-text-form');
   const spotifyBtn = document.getElementById('spotify');
   const spotifyTextForm = document.getElementById('spotify-text-form');
+  const staticBtn = document.getElementById('static-links');
+  const staticTextForm = document.getElementById('static-text-form');
+  let linkCounter = 2;
 
   nytimesBtn.addEventListener('change', (e) => {
     if (nytTextForm.classList.contains('hidden')) {
@@ -90,8 +112,6 @@
     } else {
       nytTextForm.classList.add('hidden')
     }
-
-
   });
 
   spotifyBtn.addEventListener('change', (e) => {
@@ -100,8 +120,22 @@
     } else {
       spotifyTextForm.classList.add('hidden');
     }
-
   });
+
+  staticBtn.addEventListener('change', (e) => {
+    if (staticTextForm.classList.contains('hidden')) {
+      staticTextForm.classList.remove('hidden');
+    } else {
+      staticTextForm.classList.add('hidden');
+    }
+  });
+
+  $("#add-link-btn").on("click", function (e) {
+    // create a new input form and append to page
+    $("#add-links-div").append(`<input type="text" class="form-control" id="static-input-${linkCounter}" placeholder="Input static link URL">`)
+    linkCounter++;
+
+  })
 
   $("#save-btn").on("click", (e) => {
     e.preventDefault();
@@ -117,13 +151,27 @@
         let settingsObj = {
           id: this.id
         }
-        console.log($(this).data("associatedtextbox"));
-        if($(this).data("associatedtextbox")) {
+
+        // add text/keywords to obj in settingsArr
+        if ($(this).data("associatedtextbox")) {
           console.log()
           settingsObj.textInfo = $(`#${$(this).data("associatedtextbox")}`).val();
         }
+        
+        if ($(this).data("static-links")) {
+          settingsObj.urls = [];
+           $("#add-links-div").children().each(function () {            
+          settingsObj.urls.push($(this).val()) 
+        })
+        console.log(settingsObj);
+        }
+        
         settingsArr.push(settingsObj);
       }
+
+
+
+
     });
     console.log(settingsArr);
 
