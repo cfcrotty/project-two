@@ -1,5 +1,6 @@
 body {
-  background-image: url("../images/backgroundImg.jpg")
+  background-image: url("../images/backgroundImg.jpg");
+  background-size: auto;
 }
 
 .list-group-item {
