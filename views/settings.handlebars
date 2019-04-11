@@ -14,7 +14,7 @@
 
 {{!-- NYT --}}
 <div class="form-check">
-  <input class="form-check-input" type="checkbox"  data-associatedtextbox="nyt-input" value="" id="nyt">
+  <input class="form-check-input" type="checkbox" data-associatedtextbox="nyt-input" value="" id="nyt">
   <label class="form-check-label" for="cnn">
     New York Times
   </label>
@@ -118,7 +118,7 @@
           id: this.id
         }
         console.log($(this).data("associatedtextbox"));
-        if($(this).data("associatedtextbox")) {
+        if ($(this).data("associatedtextbox")) {
           console.log()
           settingsObj.textInfo = $(`#${$(this).data("associatedtextbox")}`).val();
         }
