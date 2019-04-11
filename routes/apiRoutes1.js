@@ -195,7 +195,7 @@ module.exports = (app) => {
             },
             include: [db.Example]
         }).then(dbUser => {
-            res.render("api", { user: dbUser, obj: JSON.parse(dbUser.layoutObject) });
+            res.render("api", { user: dbUser, obj: JSON.parse(dbUser.layoutObject), objContent: JSON.parse(dbUser.chosenContent) });
         });
 
     });
