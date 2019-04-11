@@ -1,0 +1,85 @@
+<div class='row'>
+    <div class='md-col-12 marginAuto' id="solar_chart_div">
+    </div>
+</div>
+
+<script>
+    // global for passing data from ajax result to google charts callback
+    var gsolarData;
+
+    getSolarData();
+
+    function getSolarData() {
+        $.ajax("/solar", {
+            type: "GET"
+        }).then(
+            function (res) {
+                gsolarData = res.solar;
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+            }
+        );
+    }
+
+
+    function drawChart() {
+
+        var tdata = new google.visualization.DataTable();
+        var data = [];
+
+        tdata.addColumn('string', 'Date');
+        tdata.addColumn('number', 'Power');
+        // tdata.addColumn( { type:'string', role: 'style' } );  // third colummn for setting color, not using for now
+
+        for (var i = 0; i < gsolarData.length; i++) {
+            
+            tdata.addRow([gsolarData[i].date, parseInt(gsolarData[i].power)]); //,{ "style" :'blue'});
+        
+        }
+
+        // Set chart options
+        var options = {'title':"",
+                       'width':$("#solar-chart-div").width,
+                       'height':300,
+                       animation : { startup : true },
+                       hAxis : {format:'d',
+                                showTextEvery : 3},
+                       vAxis : {format : 'short',
+                                title : "kWh"},
+                        legend : {position : "none"},
+                        chartArea:{width:'80%', height:'94%'},
+                        vAxis:{maxValue:125000},
+                        // Color of the box outline.
+                        stroke: '#888',
+                        // Thickness of the box outline.
+                        strokeWidth: 1,
+                        // x-radius of the corner curvature.
+                        rx: 10,
+                        // y-radius of the corner curvature.
+                        ry: 10,
+                        // Attributes for linear gradient fill.
+                        gradient: {
+                          // Start color for gradient.
+                          color1: '#fbf6a7',
+                          // Finish color for gradient.
+                          color2: '#33b679',
+                          // Where on the boundary to start and
+                          // end the color1/color2 gradient,
+                          // relative to the upper left corner
+                          // of the boundary.
+                          x1: '0%', y1: '0%',
+                          x2: '100%', y2: '100%',
+                          // If true, the boundary for x1,
+                          // y1, x2, and y2 is the box. If
+                          // false, it's the entire chart.
+                          useObjectBoundingBoxUnits: true
+                        }
+        }
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.ColumnChart(document.getElementById('solar_chart_div'));
+        chart.draw(tdata, options);
+    }
+
+
+</script>
