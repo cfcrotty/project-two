@@ -1,5 +1,6 @@
 $("#user-login").on("submit", function(e) {
-  e.preventDefault();
+  e.preventDefault(); 
+  
   $.ajax({
     method: "POST",
     url: "/api/login",
