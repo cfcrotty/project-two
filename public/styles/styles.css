@@ -47,6 +47,15 @@ body {
   margin: 1px;
 }
 
+.height100 {
+  height: 100%;
+}
+
+.navbar-nav {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+}
 /* START - Media Queries */
 @media screen and (max-width: 770px) {
   .eachRow {

@@ -1,6 +1,6 @@
 <div class='row littleMargin'>
     <div class='md-col-12 marginAuto'>
-        <iframe id="spotifySong" src="" width="100%" height="300px" frameborder="0" allowtransparency="true"
+        <iframe id="spotifySong" class="spotifySong" src="" width="100%" height="300px" frameborder="0" allowtransparency="true"
             allow="encrypted-media"></iframe>
     </div>
 </div>
@@ -12,7 +12,7 @@
             data: { song: song }
         }).then(
             function (res) {
-                $("#spotifySong").attr(`src`, res.spotify);
+                $(".spotifySong").attr(`src`, res.spotify);
             }
         );
     }
