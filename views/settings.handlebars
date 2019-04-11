@@ -1,17 +1,26 @@
 <div class="row">
   <div class="col-md-12">
-    <h2>Customize your Dashboard {{user.email}}!</h2>
-  </div>
-</div>
+    <div class="card text-white bg-dark mb-3">
+      <div class="card-header">
+        Select items to include on your dashboard
+      </div>
+      <div class="card-body">
+        {{!-- <h5 class="card-title">Select items to include on your dashboard</h5> --}}
 
-{{!-- News Feeds --}}
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="cnn">
-  <label class="form-check-label" for="cnn">
-    CNN
-  </label>
-</div>
+        {{!-- News Feeds --}}
+        {{!-- CNN--}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" data-associatedtextbox="cnn-input" value="" id="cnn">
+          <label class="form-check-label" for="cnn">
+            CNN
+          </label>
+        </div>
+        {{!-- TEXT BOX FOR CNN --}}
+        <div id="cnn-text-form" class="form-group hidden">
+          <input type="email" class="form-control" id="cnn-input" placeholder="Keyword for news search">
+        </div>
 
+<<<<<<< HEAD
 {{!-- NYT --}}
 <div class="form-check">
   <input class="form-check-input" type="checkbox" data-associatedtextbox="nyt-input" value="" id="nyt">
@@ -31,58 +40,154 @@
     Weather
   </label>
 </div>
+=======
+        {{!-- BBC--}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" data-associatedtextbox="bbc-input" value="" id="bbc">
+          <label class="form-check-label" for="bbc">
+            BBC
+          </label>
+        </div>
+        {{!-- TEXT BOX FOR BBC --}}
+        <div id="bbc-text-form" class="form-group hidden">
+          <input type="email" class="form-control" id="bbc-input" placeholder="Keyword for news search">
+        </div>
+>>>>>>> ed0c727447d236fefac7ed8827d0755ea704daa0
+
+        {{!-- NYT --}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" data-associatedtextbox="nyt-input" value="" id="nyt">
+          <label class="form-check-label" for="nyt">
+            New York Times
+          </label>
+        </div>
+        {{!-- TEXT BOX FOR NYT --}}
+        <div id="nyt-text-form" class="form-group hidden">
+          <input type="email" class="form-control" id="nyt-input" placeholder="Keyword for news search">
+        </div>
+
+        {{!-- Personal Info --}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="weather">
+          <label class="form-check-label" for="weather">
+            Weather
+          </label>
+        </div>
+
+        {{!-- Fun --}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" data-associatedtextbox="spotify-input" value="" id="spotify">
+          <label class="form-check-label" for="spotify">
+            Spotify
+          </label>
+        </div>
+
+        {{!-- INPUT BOX FOR SPOTIFY --}}
+        <div id="spotify-text-form" class="form-group hidden">
+          <input type="text" class="form-control" id="spotify-input" placeholder="Song title, artist">
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="giphy">
+          <label class="form-check-label" for="giphy">
+            Giphy
+          </label>
+        </div>
+
+        {{!-- Add solar array --}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="solar">
+          <label class="form-check-label" for="solar">
+            Solar Array Information
+          </label>
+        </div>
+
+        {{!-- Add static links --}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" data-static-links="true" id="static-links">
+          <label class="form-check-label" for="static-links">
+            Add static-links
+          </label>
+        </div>
+
+        {{!-- Static link input box --}}
+        <div id="static-links-text-form" class="form-group hidden">
+          <div id="add-links-div">
+            <input type="text" class="form-control" id="static-links-input-0" placeholder="Input static link URL">
+          </div>
+          <button class="btn btn-primary " id="add-link-btn">+</button>
+        </div>
 
 
-{{!-- Fun --}}
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" data-associatedtextbox="spotify-input" value="" id="spotify">
-  <label class="form-check-label" for="spotify">
-    Spotify
-  </label>
+        {{!-- FUTURE DEVELOPMENT --}}
+
+        {{!-- <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="live-stream">
+          <label class="form-check-label" for="live-stream">
+            Live Stream - San Diego Zoo Pandas
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="user-iot">
+          <label class="form-check-label" for="user-iot">
+            Connect your own devices
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="to-do">
+          <label class="form-check-label" for="to-do">
+            To-do list
+          </label>
+        </div> --}}
+
+        {{!-- Submit Button --}}
+        <div class="text-right">
+          <button class="btn btn-primary" id="save-btn">Save Selections</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-{{!-- INPUT BOX FOR SPOTIFY --}}
-<div id="spotify-text-form" class="form-group hidden">
-  <label for="spotify-song">Song to Include</label>
-  <input type="text" class="form-control" id="spotify-input" placeholder="Song title, artist">
-</div>
-
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="giphy">
-  <label class="form-check-label" for="giphy">
-    Giphy
-  </label>
-</div>
-
-{{!-- FUTURE DEVELOPMENT --}}
-
-{{!-- <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="live-stream">
-  <label class="form-check-label" for="live-stream">
-    Live Stream - San Diego Zoo Pandas
-  </label>
-</div> --}}
-{{!-- <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="user-iot" >
-  <label class="form-check-label" for="user-iot">
-    Connect your own devices
-  </label>
-</div> --}}
-{{!-- <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="to-do">
-  <label class="form-check-label" for="to-do">
-    To-do list
-  </label>
-</div> --}}
-
-{{!-- Submit Button --}}
-<button class="btn btn-primary" id="save-btn">Save Selections</button>
 
 <script>
+  const cnnBtn = document.getElementById('cnn');
+  const cnnTextForm = document.getElementById('cnn-text-form');
+  const bbcBtn = document.getElementById('bbc');
+  const bbcTextForm = document.getElementById('bbc-text-form');
   const nytimesBtn = document.getElementById('nyt');
   const nytTextForm = document.getElementById('nyt-text-form');
   const spotifyBtn = document.getElementById('spotify');
   const spotifyTextForm = document.getElementById('spotify-text-form');
+  const staticBtn = document.getElementById('static-links');
+  const staticTextForm = document.getElementById('static-links-text-form');
+  let linkCounter = 1;
+
+  $(document).ready(function () {
+    $.ajax({
+      url: "/api/settings",
+      method: "GET"
+    }).then((results) => {
+      let resultsArr = JSON.parse(results);
+      // loopo through results arr of objects
+      resultsArr.forEach(item => {
+        $("#" + item.id).prop('checked', true);
+        console.log(resultsArr);
+        // console.log($("#" + item.id + "-text-form"));
+        if ($("#" + item.id).data("associatedtextbox"))  {
+          $("#" + item.id + "-text-form").removeClass('hidden');
+          //populate text field
+          $("#" + item.id + "-input").val(item.textInfo);
+        }
+        if ($("#" + item.id).data("static-links")) {
+          $("#" + item.id + "-text-form").removeClass('hidden');
+
+          item.urls.forEach((link, index) => {
+            $("#" + item.id + "-input-" + index).val(link);
+          })
+        }
+      })
+    })
+  })
 
   nytimesBtn.addEventListener('change', (e) => {
     if (nytTextForm.classList.contains('hidden')) {
@@ -90,8 +195,6 @@
     } else {
       nytTextForm.classList.add('hidden')
     }
-
-
   });
 
   spotifyBtn.addEventListener('change', (e) => {
@@ -100,8 +203,38 @@
     } else {
       spotifyTextForm.classList.add('hidden');
     }
-
   });
+
+  staticBtn.addEventListener('change', (e) => {
+    if (staticTextForm.classList.contains('hidden')) {
+      staticTextForm.classList.remove('hidden');
+    } else {
+      staticTextForm.classList.add('hidden');
+    }
+  });
+
+  cnnBtn.addEventListener('change', (e) => {
+    if (cnnTextForm.classList.contains('hidden')) {
+      cnnTextForm.classList.remove('hidden');
+    } else {
+      cnnTextForm.classList.add('hidden');
+    }
+  });
+
+  bbcBtn.addEventListener('change', (e) => {
+    if (bbcTextForm.classList.contains('hidden')) {
+      bbcTextForm.classList.remove('hidden');
+    } else {
+      bbcTextForm.classList.add('hidden');
+    }
+  });
+
+  $("#add-link-btn").on("click", function (e) {
+    // create a new input form and append to page
+    $("#add-links-div").append(`<input type="text" class="form-control" id="static-links-input-${linkCounter}" placeholder="Input static link URL">`)
+    linkCounter++;
+
+  })
 
   $("#save-btn").on("click", (e) => {
     e.preventDefault();
@@ -113,15 +246,28 @@
     // loop through the form, and see if each option is selected 
     $('input[type=checkbox').each(function () {
       if (this.checked) {
-        console.log(this)
         let settingsObj = {
           id: this.id
         }
+<<<<<<< HEAD
         console.log($(this).data("associatedtextbox"));
         if ($(this).data("associatedtextbox")) {
           console.log()
+=======
+
+        // add text/keywords to obj in settingsArr
+        if ($(this).data("associatedtextbox")) {
+>>>>>>> ed0c727447d236fefac7ed8827d0755ea704daa0
           settingsObj.textInfo = $(`#${$(this).data("associatedtextbox")}`).val();
         }
+
+        if ($(this).data("static-links")) {
+          settingsObj.urls = [];
+          $("#add-links-div").children().each(function () {
+            settingsObj.urls.push($(this).val())
+          })
+        }
+
         settingsArr.push(settingsObj);
       }
     });

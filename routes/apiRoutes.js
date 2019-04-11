@@ -65,7 +65,7 @@ module.exports = app => {
   app.post("/api/settings", isAuthenticated, (req, res) => {
     // console.log(req.body.data);
     let dataArr = req.body.data;
-
+    console.log(dataArr);
     db.User.update({
       chosenContent: dataArr
     }, {
