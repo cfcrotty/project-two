@@ -1,16 +1,13 @@
 <div class='row'>
     <div class='md-col-12 marginAuto' id="solar_chart_div">
-      
-      
     </div>
 </div>
 
 <script>
-
+    // global for passing data from ajax result to google charts callback
     var gsolarData;
 
     getSolarData();
-
 
     function getSolarData() {
         $.ajax("/solar", {
@@ -18,11 +15,7 @@
         }).then(
             function (res) {
                 gsolarData = res.solar;
-
                 google.charts.load('current', {'packages':['corechart']});
-
-                console.log(`res.solar = ${JSON.stringify(res.solar)}`);     
-                
                 google.charts.setOnLoadCallback(drawChart);
             }
         );
@@ -30,55 +23,24 @@
 
 
     function drawChart() {
-        // Find the max day
-        /*
-        var maxDay = 0;  var maxPower = 0;
-        for (let i=0; i<gsolarData.length; i++) {
-          if (gsolarData[i].power >= maxPower) {
-            maxPower = gsolarData[i].power;
-            maxDay = i;
-          }
-        }
-        */
+
         var tdata = new google.visualization.DataTable();
+        var data = [];
 
-        console.log(`############ IN DRAWCHART ###########`);
-
-        
-        /* var tempData = [];
-        var color = '#A9635E';
-        tempData.push( [ "Date", "Power",  {role: 'style' } ] );
+        tdata.addColumn('string', 'Date');
+        tdata.addColumn('number', 'Power');
+        // tdata.addColumn( { type:'string', role: 'style' } );  // third colummn for setting color, not using for now
 
         for (var i = 0; i < gsolarData.length; i++) {
-            color = 'blue';
-            tempData.push([gsolarData[i].date, gsolarData[i].powerGenerated, color])
+            
+            tdata.addRow([gsolarData[i].date, parseInt(gsolarData[i].power)]); //,{ "style" :'blue'});
+        
         }
-        */
-        
-        console.log(`solarData = ${JSON.stringify(gsolarData)}`);
-
-    //var data = google.visualization.arrayToDataTable(tempData); --}}
-
-    var data = [];
-
-    tdata.addColumn('string', 'Date');
-    tdata.addColumn('number', 'Power');
-    // tdata.addColumn('role', 'style')
-
-    // sample data: var data = [{ Date: "20140124", Visitors: "873" }, { Date: "20140125", Visitors: "875" }];
-    for (var i = 0; i < gsolarData.length; i++) {
-        
-        // tdata.addRow([new Date(gsolarData[i].date), parseInt(gsolarData[i].powerGenerated)]);
-        tdata.addRow([gsolarData[i].date, parseInt(gsolarData[i].power)]);
-    
-    }
-       
-        console.log("googleized tdata = " + JSON.stringify(tdata));
 
         // Set chart options
         var options = {'title':"",
-                       'width':230,
-                       'height':100,
+                       'width':400,
+                       'height':200,
                        animation : { startup : true },
                        hAxis : {format:'d',
                                 showTextEvery : 3},
@@ -86,7 +48,7 @@
                                 title : "kWh"},
                         legend : {position : "none"},
                         chartArea:{width:'80%', height:'94%'},
-                        vAxis:{maxValue:100000},
+                        vAxis:{maxValue:125000},
                         // Color of the box outline.
                         stroke: '#888',
                         // Thickness of the box outline.
@@ -112,17 +74,11 @@
                           // false, it's the entire chart.
                           useObjectBoundingBoxUnits: true
                         }
-                      }
+        }
 
         // Instantiate and draw our chart, passing in some options.
-       // var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         var chart = new google.visualization.ColumnChart(document.getElementById('solar_chart_div'));
-        
-       // console.log(`chart = ${JSON.stringify(chart)}`);
-        
         chart.draw(tdata, options);
-
-        console.log(`chart was drawn`);
     }
 
 
