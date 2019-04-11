@@ -46,6 +46,10 @@ body {
   margin: 1px;
 }
 
+.solarDiv {
+  width: calc(100% - 30px);
+}
+
 /* START - Media Queries */
 @media screen and (max-width: 770px) {
   .eachRow {
