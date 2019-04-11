@@ -1,17 +1,16 @@
 <div class='row eachColumn littleMargin'>
-    <div class='md-col-12 marginAuto' id='bbcData'>
+    <div class='md-col-12 marginAuto bbcData' id='bbcData'>
     </div>
 </div>
 
 <script>
-    getBBCData("bbc","{{contents.textInfo}}");
+    getBBCData("bbc-news","{{contents.textInfo}}");
     function getBBCData(source,topic) {
         $.ajax("/news", {
             type: "POST",
             data: { topic: topic,source: source }
         }).then(
             function (res) {
-                //var size = Object.keys(response.tracks.items).length;
                 var strBBC = `<div class="card">
                         <div class="card-header">
                             <h2>BBC News</h2>
@@ -22,8 +21,10 @@
                 }
                 strBBC += `</div>
                       </div>`;
-                $("#bbcData").append(strBBC);
+                $(".bbcData").append(strBBC);
             }
-        );
+        ).catch((error)=>{
+            console.log(error);
+        });
     }
 </script>
