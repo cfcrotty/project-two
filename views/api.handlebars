@@ -12,7 +12,7 @@
           {{#each columns}}
           {{#ifEquals contents.id "spotify"}}
           <div class="col-md-{{width}}">
-            {{> spotify test=(global "content")}}
+            {{> spotify data=(global "content")}}
           </div>
           {{/ifEquals}}
           {{#ifEquals contents.id "weather"}}
@@ -27,27 +27,27 @@
           {{/ifEquals}}
           {{#ifEquals contents.id "nyt"}}
           <div class="col-md-{{width}}">
-            {{> nyt}}
+            {{> nyt data=(global "content")}}
           </div>
           {{/ifEquals}}
           {{#ifEquals contents.id "cnn"}}
           <div class="col-md-{{width}}">
-            {{> cnn}}
+            {{> cnn data=(global "content")}}
           </div>
           {{/ifEquals}}
           {{#ifEquals contents.id "bbc"}}
           <div class="col-md-{{width}}">
-            {{> bbc}}
+            {{> bbc data=(global "content")}}
           </div>
           {{/ifEquals}}
           {{#ifEquals contents.id "static-links"}}
           <div class="col-md-{{width}}">
-            {{> static-links}}
+            {{> static-links data=(global "content")}}
           </div>
           {{/ifEquals}}
           {{#ifEquals contents.id "webcam"}}
           <div class="col-md-{{width}}">
-            {{> webcam}}
+            {{> webcam data=(global "content")}}
           </div>
           {{/ifEquals}}
           {{/each}}

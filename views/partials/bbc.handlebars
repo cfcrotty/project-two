@@ -2,9 +2,10 @@
     <div class='md-col-12 marginAuto bbcData' id='bbcData'>
     </div>
 </div>
-
+{{#each data}}
+{{#ifEquals "bbc" id}}
 <script>
-    getBBCData("bbc-news","{{contents.textInfo}}");
+    getBBCData("bbc-news","{{textInfo}}");
     function getBBCData(source,topic) {
         $.ajax("/news", {
             type: "POST",
@@ -28,3 +29,5 @@
         });
     }
 </script>
+{{/ifEquals}}
+{{/each}}

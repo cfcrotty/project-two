@@ -2,9 +2,10 @@
     <div class='md-col-12 marginAuto nytimesData' id='nytimesData'>
     </div>
 </div>
-
+{{#each data}}
+{{#ifEquals "nyt" id}}
 <script>
-    getNYTTimesData("{{contents.textInfo}}");
+    getNYTTimesData("{{textInfo}}");
     function getNYTTimesData(topic) {
         $.ajax("/nytimes", {
             type: "POST",
@@ -27,3 +28,5 @@
         );
     }
 </script>
+{{/ifEquals}}
+{{/each}}
