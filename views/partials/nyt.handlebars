@@ -1,5 +1,5 @@
 <div class='row eachColumn littleMargin'>
-    <div class='md-col-12 marginAuto' id='nytimesData'>
+    <div class='md-col-12 marginAuto nytimesData' id='nytimesData'>
     </div>
 </div>
 
@@ -11,10 +11,7 @@
             data: { topic: topic }
         }).then(
             function (res) {
-                //location.reload();
-                //console.log(res);
                 var ny = res.nytimes.docs;
-                //var size = Object.keys(response.tracks.items).length;
                 var strNY = `<div class="card">
                     <div class="card-header">
                             <h2>NYTimes News</h2>
@@ -25,7 +22,7 @@
                 }
                 strNY += `</div>
                       </div>`;
-                $("#nytimesData").append(strNY);
+                $(".nytimesData").append(strNY);
             }
         );
     }

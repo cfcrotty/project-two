@@ -1,5 +1,6 @@
 body {
-  background-image: url("../images/backgroundImg.jpg")
+  background-image: url("../images/backgroundImg.jpg");
+  background-size: auto;
 }
 
 .list-group-item {
@@ -50,6 +51,7 @@ body {
   width: calc(100% - 30px);
 }
 
+<<<<<<< HEAD
 .weatherCard {
   height: 350px;
 }
@@ -61,6 +63,16 @@ body {
 
 hr {
   margin: 4px -10px;
+=======
+.height100 {
+  height: 100%;
+}
+
+.navbar-nav {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+>>>>>>> 2a250fa19fa630064eb6f4d04e369a1880dd237d
 }
 
 /* START - Media Queries */

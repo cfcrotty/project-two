@@ -18,6 +18,6 @@ $("#user-login").on("submit", function(e) {
     })
     .catch(function(err) {
       console.log(err);
-      alert(err.responseText);
+      alert(err.responseText+": "+"Email or password incorrect");
     });
 });

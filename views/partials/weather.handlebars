@@ -1,22 +1,22 @@
 <div class='row littleMargin'>
-    <div class='md-col-12 marginAuto' id="weather">
-    </div>
+  <div class='md-col-12 marginAuto weather' id="weather">
+  </div>
 </div>
 
 <script>
-    var lat, long;
-    function getLatLong(callback) {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                lat = position.coords.latitude;
-                long = position.coords.longitude;
-                callback(lat, long);
-            });
-        } else {
-            alert("Geolocation is not supported by this browser.");
-            callback(lat, long);
-        }
+  var lat, long;
+  function getLatLong(callback) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        callback(lat, long);
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+      callback(lat, long);
     }
+<<<<<<< HEAD
     getLatLong(getWeatherData);
     function getWeatherData(lat, long) {
         if (!lat) lat = 32.8531813;
@@ -27,6 +27,19 @@
         }).then(
             function (res) {
                 $("#weather").append(`<div class="weatherCard card">
+=======
+  }
+  getLatLong(getWeatherData);
+  function getWeatherData(lat, long) {
+    if (!lat) lat = 32.8531813;
+    if (!long) long = -117.1826385;
+    $.ajax("/weather", {
+      type: "POST",
+      data: { lat: lat, long: long }
+    }).then(
+      function (res) {
+        $(".weather").html(`<div class="card">
+>>>>>>> 2a250fa19fa630064eb6f4d04e369a1880dd237d
                             <div class='card-header'>
                           <h3><span><img
                                 src="/images/weather/${res.weather.icon}.png"></span>${res.weather.summary}
@@ -54,6 +67,6 @@
                             </div>
                           </div>
                         </div>`);
-            });
-    }
+      });
+  }
 </script>

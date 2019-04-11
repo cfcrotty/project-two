@@ -62,9 +62,10 @@
 
         {{!-- INPUT BOX FOR SPOTIFY --}}
         <div id="spotify-text-form" class="form-group hidden">
-          <input type="text" class="form-control" id="spotify-input" placeholder="Song title, artist">
+          <input type="text" class="form-control" id="spotify-input" placeholder="Enter a song or artist">
         </div>
 
+        {{!-- Giphy --}}
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="giphy">
           <label class="form-check-label" for="giphy">
@@ -78,6 +79,19 @@
           <label class="form-check-label" for="solar">
             Solar Array Information
           </label>
+        </div>
+
+        {{!-- Add Webcam --}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" data-associatedtextbox="spotify-input" value="" id="webcam">
+          <label class="form-check-label" for="webcam">
+            Webcam
+          </label>
+        </div>
+
+        {{!-- INPUT BOX FOR WEBCAM --}}
+        <div id="webcam-text-form" class="form-group hidden">
+          <input type="text" class="form-control" id="webcam-input" placeholder="Enter webcam URL">
         </div>
 
         {{!-- Add static links --}}
@@ -128,18 +142,21 @@
 </div>
 
 <script>
-  const cnnBtn = document.getElementById('cnn');
-  const cnnTextForm = document.getElementById('cnn-text-form');
-  const bbcBtn = document.getElementById('bbc');
-  const bbcTextForm = document.getElementById('bbc-text-form');
-  const nytimesBtn = document.getElementById('nyt');
-  const nytTextForm = document.getElementById('nyt-text-form');
-  const spotifyBtn = document.getElementById('spotify');
+  const cnnBtn          = document.getElementById('cnn');
+  const cnnTextForm     = document.getElementById('cnn-text-form');
+  const bbcBtn          = document.getElementById('bbc');
+  const bbcTextForm     = document.getElementById('bbc-text-form');
+  const nytimesBtn      = document.getElementById('nyt');
+  const nytTextForm     = document.getElementById('nyt-text-form');
+  const spotifyBtn      = document.getElementById('spotify');
   const spotifyTextForm = document.getElementById('spotify-text-form');
-  const staticBtn = document.getElementById('static-links');
-  const staticTextForm = document.getElementById('static-links-text-form');
-  let linkCounter = 1;
+  const staticBtn       = document.getElementById('static-links');
+  const staticTextForm  = document.getElementById('static-links-text-form');
+  const webcamBtn       = document.getElementById('webcam');
+  const webcamTextForm  = document.getElementById('webcam-text-form');
+  let   linkCounter     = 1;
 
+  // if previously created settings, populate form with previous inputs 
   $(document).ready(function () {
     $.ajax({
       url: "/api/settings",
@@ -151,7 +168,7 @@
         $("#" + item.id).prop('checked', true);
         console.log(resultsArr);
         // console.log($("#" + item.id + "-text-form"));
-        if ($("#" + item.id).data("associatedtextbox"))  {
+        if ($("#" + item.id).data("associatedtextbox")) {
           $("#" + item.id + "-text-form").removeClass('hidden');
           //populate text field
           $("#" + item.id + "-input").val(item.textInfo);
@@ -165,7 +182,16 @@
         }
       })
     })
-  })
+  });
+
+  // eventListeners
+  webcamBtn.addEventListener('change', (e) => {
+    if (webcamTextForm.classList.contains('hidden')) {
+      webcamTextForm.classList.remove('hidden')
+    } else {
+      webcamTextForm.classList.add('hidden')
+    }
+  });
 
   nytimesBtn.addEventListener('change', (e) => {
     if (nytTextForm.classList.contains('hidden')) {
@@ -258,6 +284,5 @@
     })
 
   });
-
 
 </script>
