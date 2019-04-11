@@ -62,6 +62,8 @@ body {
 
 hr {
   margin: 4px -10px;
+}
+
 .height100 {
   height: 100%;
 }
@@ -70,6 +72,19 @@ hr {
   text-align: center;
   font-weight: 500;
   font-size: 1rem;
+}
+
+.staticLinkCard {
+  height: 350px;
+}
+
+.webcamImage {
+  width: 100%;
+  height: auto;
+}
+
+.webcamData {
+  padding: 0px;
 }
 
 /* START - Media Queries */
