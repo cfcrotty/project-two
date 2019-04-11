@@ -50,6 +50,11 @@
             {{> webcam data=(global "content")}}
           </div>
           {{/ifEquals}}
+          {{#ifEquals contents.id "solar"}}
+          <div class="col-md-{{width}}">
+            {{> solar }}
+          </div>
+          {{/ifEquals}}
           {{/each}}
         </div>
         {{/each}}
