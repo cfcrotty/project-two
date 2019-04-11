@@ -49,6 +49,17 @@ handlebars.registerHelper('ifEquals',
 handlebars.registerHelper('json', function(context) {
   return JSON.stringify(context);
 });
+var myGlobal = {
+   title: "myapp"
+};
+handlebars.registerHelper('global', function(key){
+  return myGlobal[key];
+});
+handlebars.registerHelper('addGlobal', function(key,val){
+  myGlobal[key]=val;
+  return;
+});
+
 // Routes
 require("./routes/apiRoutes1")(app);
 require("./routes/apiRoutes")(app);

@@ -9,9 +9,10 @@
         </div>
     </div>
 </div>
-
+{{#each data}}
+{{#ifEquals "static-links" id}}
 <script>
-    getStaticLinksData({{{ json contents.urls }}});
+    getStaticLinksData({{{ json urls }}});
     function getStaticLinksData(arr) {
         for (var i = 0; i < arr.length; i++) {
             /*
@@ -42,3 +43,5 @@
         }
     }
 </script>
+{{/ifEquals}}
+{{/each}}

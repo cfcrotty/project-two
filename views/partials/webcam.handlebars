@@ -1,0 +1,33 @@
+<div class='row eachColumn littleMargin'>
+    <div class='md-col-12 marginAuto height100'>
+        <div class="card height100">
+            <div class="card-header">
+                <h2>Image/s</h2>
+            </div>
+            <div class="card-body webcamData" id='webcamData'>
+            </div>
+        </div>
+    </div>
+</div>
+{{#each data}}
+{{#ifEquals "webcam" id}}
+<script>
+    getStaticLinksData("{{ textInfo }}");
+    function getStaticLinksData(webcam) {
+        $.ajax({
+            type: "GET",
+            url: "https://cors-anywhere.herokuapp.com/" + webcam,
+            async: false,
+            success: function (text) {
+                let str = `<img src="${webcam}" alt="Image">${webcam}</a><br> <hr>`;
+                $(".webcamData").append(str);
+            },
+            error: function () {
+                let str = `Invalid Webcam URL: ${webcam}<br> <hr>`;
+                $(".webcamData").append(str);
+            }
+        });
+    }
+</script>
+{{/ifEquals}}
+{{/each}}
