@@ -26,7 +26,7 @@
             data: { lat: lat, long: long }
         }).then(
             function (res) {
-                $("#weather").append(`<div class="card">
+                $("#weather").append(`<div class="weatherCard card">
                             <div class='card-header'>
                           <h3><span><img
                                 src="/images/weather/${res.weather.icon}.png"></span>${res.weather.summary}
@@ -34,20 +34,23 @@
                           </div>
                           <div class='card-body'>
                             <div class="row">
-                              <div class='col-sm-4'>Description</div>
-                              <div class='col-sm-8'>${res.weather.summaryHourly}</div>
+                              <div class='weatherText col-sm-5'>Description</div>
+                              <div class='weatherText col-sm-7'>${res.weather.summaryHourly}</div>
                             </div>
+                            <hr>
                             <div class='row'>
-                              <div class='col-sm-4'>Temperature</div>
-                              <div class='col-sm-8'>${res.weather.tempMax}F</div>
+                              <div class='weatherText col-sm-5'>Temperature</div>
+                              <div class='weatherText col-sm-7'>${res.weather.tempMax}F</div>
                             </div>
+                            <hr>
                             <div class='row'>
-                              <div class='col-sm-4'>Humidity</div>
-                              <div class='col-sm-8'>${res.weather.humidity}%</div>
+                              <div class='weatherText col-sm-5'>Humidity</div>
+                              <div class='weatherText col-sm-7'>${res.weather.humidity}%</div>
                             </div>
+                            <hr>
                             <div class='row'>
-                              <div class='col-sm-4'>Wind Speed</div>
-                              <div class='col-sm-8'>${res.weather.windSpeed} mph</div>
+                              <div class='weatherText col-sm-5'>Wind Speed</div>
+                              <div class='weatherText col-sm-7'>${res.weather.windSpeed} mph</div>
                             </div>
                           </div>
                         </div>`);
