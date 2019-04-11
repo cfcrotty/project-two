@@ -1,33 +1,53 @@
-# node-handlebars-passport-boilerplate 🍽️
+# DASHER
 
 ## Introduction
 
-This project is meant to be boilerplate for express, sequelize, handlebars, and passport.
+Dasher is a content aggregator that gathers your selected information from across the web and displays it in one convenient location. 
 
+This project is meant to demonstrate proficiency for express, sequelize, handlebars, and passport while adhering to the MVC design paradigm. 
 
-## Installation
+## Technologies
 
-1. Create a mysql database called `exampledb`
+Technologies used in the creation of this application include: 
 
-2. Update the `config.json` to match your local database, username, password
+1. Javascript
+    * Styling and logic
+2. Node
+    * Create server code using JavaScript
+3. Express
+    * Simplify node server code
+4. MySql
+    * Development database
+5. Handlebars
+    * HTML templates
+6. Sequelize
+    * ORM for mySql 
+7. Heroku
+    * Public deployment 
+8. JawsDB 
+    * Remote database
+9. Git
+    * Version control 
+10. Mocha + Chai
+    * Unit and integration testing 
+11. 20+ Node Packets
 
-3. Add a `.env` at the top level of this project. 
+## Getting Started
 
-4. Then inside of the .env add a SERVER_SECRET set to any value you'd like
-```
-SERVER_SECRET = 123456
-```
+To use dasher:
 
-5. `npm install`
+1. Create a new user account 
+2. Select the content you'd like to display on your dashboard
+3. Allocate space for each piece of content on your dashboard with our Layout interface. 
+4. Visit your dashboard! 
 
-6. `node server.js`
+## Demo the Application 
 
-## Demo of this App
+A demo version of the application has been deployed to [**Heroku**](https://dasher-homepage.herokuapp.com)
+## More Info
 
-You can find a demo of this app here:
+The **github** for this project can be found here [**Github**](https://github.com/Matt-S-Elliott/project-two/blob/master/README.md)
+___
+This project was created in a collaborative effort by **Cara Crotty**, **Matthew Elliot**, **Kevin Gorham**, and **Richard Moore**
 
-https://node-passport-sequelize.herokuapp.com/
-
-## GitHub for this App
-
-https://github.com/Travo100/project-two-starter-code-with-auth
+Contact Us: [Cara](mailto:carafeliselana@gmail.com) | [Matt](mailto:mse951993@gmail.com) | [Kevin](mailto:kevin.gorham@gmail.com) | [Richard](mailto:richard@randkmoore.com)
