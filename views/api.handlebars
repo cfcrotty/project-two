@@ -24,6 +24,11 @@
             {{> giphy}}
           </div>
           {{/ifEquals}}
+          {{#ifEquals contents.id "solar"}}
+          <div class="col-md-{{width}}">
+            {{> solar}}
+          </div>
+          {{/ifEquals}}
           {{#ifEquals contents.id "nyt"}}
           <div class="col-md-{{width}}">
             {{> nyt}}
