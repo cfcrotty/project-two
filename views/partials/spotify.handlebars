@@ -6,6 +6,7 @@
 </div>
 <script>
     getSpotifyData("{{contents.textInfo}}");
+    
     function getSpotifyData(song) {
         $.ajax("/spotify", {
             type: "POST",

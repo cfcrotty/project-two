@@ -1,6 +1,7 @@
 <div class="row" style="height:50px;">
   <div class="col-md-12"></div>
 </div>
+{{{addGlobal "content" objContent}}}
 <script src="/js/api.js"></script>
 <div class="row">
   <div class="col-md-12">
@@ -11,7 +12,7 @@
           {{#each columns}}
           {{#ifEquals contents.id "spotify"}}
           <div class="col-md-{{width}}">
-            {{> spotify}}
+            {{> spotify test=(global "content")}}
           </div>
           {{/ifEquals}}
           {{#ifEquals contents.id "weather"}}
@@ -22,11 +23,6 @@
           {{#ifEquals contents.id "giphy"}}
           <div class="col-md-{{width}}">
             {{> giphy}}
-          </div>
-          {{/ifEquals}}
-          {{#ifEquals contents.id "solar"}}
-          <div class="col-md-{{width}}">
-            {{> solar}}
           </div>
           {{/ifEquals}}
           {{#ifEquals contents.id "nyt"}}
@@ -47,6 +43,11 @@
           {{#ifEquals contents.id "static-links"}}
           <div class="col-md-{{width}}">
             {{> static-links}}
+          </div>
+          {{/ifEquals}}
+          {{#ifEquals contents.id "webcam"}}
+          <div class="col-md-{{width}}">
+            {{> webcam}}
           </div>
           {{/ifEquals}}
           {{/each}}
