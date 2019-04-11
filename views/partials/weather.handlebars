@@ -16,16 +16,17 @@
       alert("Geolocation is not supported by this browser.");
       callback(lat, long);
     }
-    getLatLong(getWeatherData);
-    function getWeatherData(lat, long) {
-        if (!lat) lat = 32.8531813;
-        if (!long) long = -117.1826385;
-        $.ajax("/weather", {
-            type: "POST",
-            data: { lat: lat, long: long }
-        }).then(
-            function (res) {
-                $("#weather").append(`<div class="weatherCard card">
+  }
+  getLatLong(getWeatherData);
+  function getWeatherData(lat, long) {
+    if (!lat) lat = 32.8531813;
+    if (!long) long = -117.1826385;
+    $.ajax("/weather", {
+      type: "POST",
+      data: { lat: lat, long: long }
+    }).then(
+      function (res) {
+        $(".weather").html(`<div class="weatherCard card">
                             <div class='card-header'>
                           <h3><span><img
                                 src="/images/weather/${res.weather.icon}.png"></span>${res.weather.summary}
