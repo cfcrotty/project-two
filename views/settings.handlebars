@@ -142,19 +142,19 @@
 </div>
 
 <script>
-  const cnnBtn          = document.getElementById('cnn');
-  const cnnTextForm     = document.getElementById('cnn-text-form');
-  const bbcBtn          = document.getElementById('bbc');
-  const bbcTextForm     = document.getElementById('bbc-text-form');
-  const nytimesBtn      = document.getElementById('nyt');
-  const nytTextForm     = document.getElementById('nyt-text-form');
-  const spotifyBtn      = document.getElementById('spotify');
+  const cnnBtn = document.getElementById('cnn');
+  const cnnTextForm = document.getElementById('cnn-text-form');
+  const bbcBtn = document.getElementById('bbc');
+  const bbcTextForm = document.getElementById('bbc-text-form');
+  const nytimesBtn = document.getElementById('nyt');
+  const nytTextForm = document.getElementById('nyt-text-form');
+  const spotifyBtn = document.getElementById('spotify');
   const spotifyTextForm = document.getElementById('spotify-text-form');
-  const staticBtn       = document.getElementById('static-links');
-  const staticTextForm  = document.getElementById('static-links-text-form');
-  const webcamBtn       = document.getElementById('webcam');
-  const webcamTextForm  = document.getElementById('webcam-text-form');
-  let   linkCounter     = 1;
+  const staticBtn = document.getElementById('static-links');
+  const staticTextForm = document.getElementById('static-links-text-form');
+  const webcamBtn = document.getElementById('webcam');
+  const webcamTextForm = document.getElementById('webcam-text-form');
+  let linkCounter = 1;
 
   // if previously created settings, populate form with previous inputs 
   $(document).ready(function () {
@@ -163,7 +163,7 @@
       method: "GET"
     }).then((results) => {
       let resultsArr = JSON.parse(results);
-      // loopo through results arr of objects
+      // loop through results arr of objects
       resultsArr.forEach(item => {
         $("#" + item.id).prop('checked', true);
         console.log(resultsArr);
@@ -175,8 +175,11 @@
         }
         if ($("#" + item.id).data("static-links")) {
           $("#" + item.id + "-text-form").removeClass('hidden');
-
+          // populate text boxes for additional urls 
           item.urls.forEach((link, index) => {
+            if (index !== 0) {
+              newLinkBox();
+            }
             $("#" + item.id + "-input-" + index).val(link);
           })
         }
@@ -235,9 +238,7 @@
 
   $("#add-link-btn").on("click", function (e) {
     // create a new input form and append to page
-    $("#add-links-div").append(`<input type="text" class="form-control" id="static-links-input-${linkCounter}" placeholder="Input static link URL">`)
-    linkCounter++;
-
+    newLinkBox();
   })
 
   $("#save-btn").on("click", (e) => {
@@ -262,7 +263,9 @@
         if ($(this).data("static-links")) {
           settingsObj.urls = [];
           $("#add-links-div").children().each(function () {
-            settingsObj.urls.push($(this).val())
+            if ($(this).val().trim() !== '') {
+              settingsObj.urls.push($(this).val())
+            }
           })
         }
 
@@ -284,5 +287,10 @@
     })
 
   });
+
+  function newLinkBox() {
+    $("#add-links-div").append(`<input type="text" class="form-control" id="static-links-input-${linkCounter}" placeholder="Input static link URL">`)
+    linkCounter++;
+  };
 
 </script>
