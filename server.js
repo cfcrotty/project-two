@@ -46,6 +46,9 @@ handlebars.registerHelper('ifEquals',
     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
   }
 );
+handlebars.registerHelper('json', function(context) {
+  return JSON.stringify(context);
+});
 // Routes
 require("./routes/apiRoutes1")(app);
 require("./routes/apiRoutes")(app);

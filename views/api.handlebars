@@ -39,6 +39,11 @@
             {{> bbc}}
           </div>
           {{/ifEquals}}
+          {{#ifEquals contents.id "static-links"}}
+          <div class="col-md-{{width}}">
+            {{> static-links}}
+          </div>
+          {{/ifEquals}}
           {{/each}}
         </div>
         {{/each}}
