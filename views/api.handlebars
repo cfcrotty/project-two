@@ -34,6 +34,16 @@
             {{> nyt}}
           </div>
           {{/ifEquals}}
+          {{#ifEquals contents.id "cnn"}}
+          <div class="col-md-{{width}}">
+            {{> cnn}}
+          </div>
+          {{/ifEquals}}
+          {{#ifEquals contents.id "bbc"}}
+          <div class="col-md-{{width}}">
+            {{> bbc}}
+          </div>
+          {{/ifEquals}}
           {{/each}}
         </div>
         {{/each}}
