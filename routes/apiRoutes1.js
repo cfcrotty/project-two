@@ -72,7 +72,6 @@ function getWeather(lat, long, callback) {
     var queryURL = "https://api.darksky.net/forecast/" + process.env.DARK_SKY + "/" + lat + "," + long + "," + theDate + "?units=us&exclude=minutely";
 
     axios.get(queryURL).then(function (response) {
-        //console.log(response.data)
         var idx = moment.unix(theDate).format("YYYY-MM-DD");
         var res = response.data.currently;
         results = {
@@ -171,6 +170,7 @@ function getSolar(callback) {
 
 
 function getNews(source,topic,callback) {
+    if (!topic) topic = "world";
     newsapi.v2.everything({
         q: topic,
         sources: source,//'bbc-news,the-verge,cnn,wired, techcrunch, the-new-york-times, associated-press'

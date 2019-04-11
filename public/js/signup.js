@@ -17,7 +17,11 @@ $("#user-sign-up").on("submit", function(e) {
       window.location.replace(data);
     })
     .catch(function(err) {
-      console.log(err);
-      alert(err.responseText);
+      var res = JSON.parse(err.responseText);
+      var output = "";
+      for (let i=0;i<res.errors.length;i++) {
+        output+=res.errors[i].message+". ";
+      }
+      alert(output);
     });
 });

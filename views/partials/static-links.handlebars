@@ -1,0 +1,44 @@
+<div class='row eachColumn littleMargin'>
+    <div class='md-col-12 marginAuto height100'>
+        <div class="card height100">
+            <div class="card-header">
+                <h2>Static Links</h2>
+            </div>
+            <div class="card-body staticLinksData" id='staticLinksData'>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    getStaticLinksData({{{ json contents.urls }}});
+    function getStaticLinksData(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            /*
+            $.ajax({
+                url: "https://cors-anywhere.herokuapp.com/"+arr[i],
+                type: "GET"
+            }).then((res) => {
+                console.log(res);
+                let str = `<a target="_blank" href="${arr[i]}">${arr[i]}</a><br> <hr>`;
+                $(".staticLinksData").append(str);
+            }).catch(() => {
+                console.log("Error");
+            });
+            */
+            $.ajax({
+                type: "GET",
+                url: "https://cors-anywhere.herokuapp.com/" + arr[i],
+                async: false,
+                success: function (text) {
+                    let str = `<a target="_blank" href="${arr[i]}">${arr[i]}</a><br> <hr>`;
+                    $(".staticLinksData").append(str);
+                },
+                error: function (){
+                    let str = `Invalid URL: ${arr[i]}<br> <hr>`;
+                    $(".staticLinksData").append(str);
+                }
+            });
+        }
+    }
+</script>
