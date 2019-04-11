@@ -1,5 +1,6 @@
 body {
-  background-image: url("../images/backgroundImg.jpg")
+  background-image: url("../images/backgroundImg.jpg");
+  background-size: 100%;
 }
 
 .list-group-item {
@@ -46,6 +47,21 @@ body {
   margin: 1px;
 }
 
+.solarDiv {
+  width: calc(100% - 30px);
+}
+
+.weatherCard {
+  height: 350px;
+}
+
+.weatherText {
+  padding: 0px;
+  padding-left: 5px;
+}
+
+hr {
+  margin: 4px -10px;
 .height100 {
   height: 100%;
 }
@@ -55,6 +71,7 @@ body {
   font-weight: 500;
   font-size: 1rem;
 }
+
 /* START - Media Queries */
 @media screen and (max-width: 770px) {
   .eachRow {
